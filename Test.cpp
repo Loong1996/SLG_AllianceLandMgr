@@ -545,7 +545,7 @@ void ClearAllAllianceLand()
         // 灯塔1
         for (int i = 0; i < 200; ++i)
         {
-            SPTR_MAP_OBJ_LIGHTHOUSE sptrLighthouse = std::make_shared<CMapObjLighthouse>(1000, rand());
+            SPTR_MAP_OBJ_LIGHTHOUSE sptrLighthouse = std::make_shared<CMapObjLighthouse>(ui64AllianceId, rand());
             SPTR_MAP_OBJ sptrMapObj = sptrLighthouse;
             vecMapObj.push_back(sptrMapObj);
 
@@ -564,7 +564,19 @@ void ClearAllAllianceLand()
 
     for (uint64 ui64AllianceId = 1000; ui64AllianceId < 2000; ++ui64AllianceId)
     {
+        LARGE_INTEGER timeStart;    //开始时间
+        LARGE_INTEGER timeEnd;      //结束时间
+        LARGE_INTEGER frequency;    //计时器频率
+        QueryPerformanceFrequency(&frequency);
+        double quadpart = (double)frequency.QuadPart;//计时器频率
+        QueryPerformanceCounter(&timeStart); // 开始计时
+
         LP_LOG_FAIL(X_OK == pLandMgr->ClearAllianceAllLand(ui64AllianceId));
+
+        QueryPerformanceCounter(&timeEnd); // 结束计时
+        //计算排序耗时
+        double elapsed = (timeEnd.QuadPart - timeStart.QuadPart) / quadpart;
+        TEST_LOG("删除耗时" << elapsed); //单位为秒，精度为微秒
     }
 
     TEST_CHECK_LAND_LOG("", 0, 0,
@@ -926,7 +938,7 @@ void RandomTest()
         // 灯塔1
         for (int i = 0; i < 200; ++i)
         {
-            SPTR_MAP_OBJ_LIGHTHOUSE sptrLighthouse = std::make_shared<CMapObjLighthouse>(1000, rand());
+            SPTR_MAP_OBJ_LIGHTHOUSE sptrLighthouse = std::make_shared<CMapObjLighthouse>(ui64AllianceId, rand());
             SPTR_MAP_OBJ sptrMapObj = sptrLighthouse;
             vecMapObj.push_back(sptrMapObj);
 

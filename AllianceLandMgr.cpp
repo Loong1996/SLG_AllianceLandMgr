@@ -662,7 +662,7 @@ bool CAllianceLandMgr::CheckMapObjData(const SPTR_MAP_OBJ& rMapObjSptr)
     }
 
     // 检查此建筑是否可圈地
-    E_MAP_OBJECT_TYPE eType = rMapObjSptr->GetType();
+    const E_MAP_OBJECT_TYPE eType = rMapObjSptr->GetType();
     if ((eType != E_MAP_OBJECT_TYPE_HARBOUR) && (eType != E_MAP_OBJECT_TYPE_FORTRESS) && (eType != E_MAP_OBJECT_TYPE_LIGHTHOUSE))
     {
         return false;
@@ -673,6 +673,18 @@ bool CAllianceLandMgr::CheckMapObjData(const SPTR_MAP_OBJ& rMapObjSptr)
     rMapObjSptr->GetOccupyCoord(stOccupyCoord);
     if ((0 == stOccupyCoord.x) || (DEFAULE_MAP_X_SIZE < stOccupyCoord.x)
         || (0 == stOccupyCoord.y) || (DEFAULE_MAP_Y_SIZE < stOccupyCoord.y))
+    {
+        return false;
+    }
+
+    SPTR_STATIC_MAP_OBJECT spStaticMapObj = std::dynamic_pointer_cast<CStaticMapObject>(rMapObjSptr);
+    LP_IF(nullptr == spStaticMapObj)
+    {
+        return false;
+    }
+
+    // 检查此静态物价是否有联盟
+    LP_IF(0 == spStaticMapObj->GetAllianceId())
     {
         return false;
     }

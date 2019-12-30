@@ -8,7 +8,7 @@ int main()
     Test4();
     Test5();
     Test6();
-    ClearAllAllianceLand();
+    //ClearAllAllianceLand();
 
     TEST_TITLE("以下为手动测试！");
     Test7();
