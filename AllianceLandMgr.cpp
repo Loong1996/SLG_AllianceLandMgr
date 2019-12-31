@@ -2,9 +2,9 @@
 
 CAllianceLandMgr::CAllianceLandMgr()
 {
-    memset(m_arrLandMap, 0, sizeof(m_arrLandMap) / sizeof(LAND_ID));
-    memset(m_arrLabelMap, 0, sizeof(m_arrLabelMap) / sizeof(LAND_LABEL_ID));
-    memset(m_arrUnionFind, 0, sizeof(m_arrUnionFind) / sizeof(LAND_LABEL_ID));
+    memset(m_arrLandMap, 0, sizeof(m_arrLandMap));
+    memset(m_arrLabelMap, 0, sizeof(m_arrLabelMap));
+    memset(m_arrUnionFind, 0, sizeof(m_arrUnionFind));
     // id都从1开始分配，0为无效值
     m_LandIdDist = 1;
     m_LabelIdDist = 1;
