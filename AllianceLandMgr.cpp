@@ -705,6 +705,11 @@ bool CAllianceLandMgr::CheckEnclosurePriority(const SPTR_MAP_OBJ& rMapObjSptr1, 
         return true;
     }
 
+    if (rMapObjSptr2->GetType() == E_MAP_OBJECT_TYPE_HARBOUR)
+    {
+        return true;
+    }
+
     SPTR_STATIC_MAP_OBJECT spStaticMapObj1 = std::dynamic_pointer_cast<CStaticMapObject>(rMapObjSptr1);
     LP_IF(nullptr == spStaticMapObj1)
     {
